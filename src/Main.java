@@ -1,6 +1,6 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello, World!");
-        // Коммит с файлом 2
+        // Изменения для другой ветки
     }
 }
