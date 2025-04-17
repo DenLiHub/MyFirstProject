@@ -70,8 +70,10 @@ public class UserDaoHibernateImpl implements UserDao {
 
         try (Session session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            User user = (User) session.get(User.class, id);
-            session.delete(user);
+            User user = session.get(User.class, id);
+            if (user != null) {
+                session.delete(user);
+            }
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -103,7 +105,7 @@ public class UserDaoHibernateImpl implements UserDao {
 
         try (Session session = Util.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.createSQLQuery("TRUNCATE TABLE users").executeUpdate();
+            session.createQuery("DELETE FROM User").executeUpdate();
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
